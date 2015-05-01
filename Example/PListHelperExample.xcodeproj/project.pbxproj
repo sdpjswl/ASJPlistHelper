@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C06EBD551AF3FAFD0070BA0A /* PListHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C06EBD541AF3FAFD0070BA0A /* PListHelper.m */; };
 		C0777B981AF3F5E0005C1445 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0777B971AF3F5E0005C1445 /* main.m */; };
 		C0777B9B1AF3F5E0005C1445 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0777B9A1AF3F5E0005C1445 /* AppDelegate.m */; };
 		C0777BA11AF3F5E0005C1445 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0777B9F1AF3F5E0005C1445 /* Main.storyboard */; };
@@ -14,7 +15,6 @@
 		C0777BA61AF3F5E0005C1445 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0777BA41AF3F5E0005C1445 /* LaunchScreen.xib */; };
 		C0777BB21AF3F5E0005C1445 /* PListHelperExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C0777BB11AF3F5E0005C1445 /* PListHelperExampleTests.m */; };
 		C0777BBD1AF3F60A005C1445 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0777BBC1AF3F60A005C1445 /* ViewController.m */; };
-		C0BA01241AF3F649008BF37F /* PListHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C0BA01231AF3F649008BF37F /* PListHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C06EBD531AF3FAFD0070BA0A /* PListHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListHelper.h; sourceTree = "<group>"; };
+		C06EBD541AF3FAFD0070BA0A /* PListHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListHelper.m; sourceTree = "<group>"; };
 		C0777B921AF3F5E0005C1445 /* PListHelperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PListHelperExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0777B961AF3F5E0005C1445 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0777B971AF3F5E0005C1445 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -41,8 +43,6 @@
 		C0777BB11AF3F5E0005C1445 /* PListHelperExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PListHelperExampleTests.m; sourceTree = "<group>"; };
 		C0777BBB1AF3F60A005C1445 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C0777BBC1AF3F60A005C1445 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C0BA01221AF3F649008BF37F /* PListHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListHelper.h; sourceTree = "<group>"; };
-		C0BA01231AF3F649008BF37F /* PListHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +63,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C06EBD521AF3FAFD0070BA0A /* PListHelper */ = {
+			isa = PBXGroup;
+			children = (
+				C06EBD531AF3FAFD0070BA0A /* PListHelper.h */,
+				C06EBD541AF3FAFD0070BA0A /* PListHelper.m */,
+			);
+			path = PListHelper;
+			sourceTree = "<group>";
+		};
 		C0777B891AF3F5E0005C1445 = {
 			isa = PBXGroup;
 			children = (
@@ -84,7 +93,7 @@
 		C0777B941AF3F5E0005C1445 /* PListHelperExample */ = {
 			isa = PBXGroup;
 			children = (
-				C0BA01211AF3F649008BF37F /* PListHelper */,
+				C06EBD521AF3FAFD0070BA0A /* PListHelper */,
 				C0777B991AF3F5E0005C1445 /* AppDelegate.h */,
 				C0777B9A1AF3F5E0005C1445 /* AppDelegate.m */,
 				C0777BBB1AF3F60A005C1445 /* ViewController.h */,
@@ -121,15 +130,6 @@
 				C0777BB01AF3F5E0005C1445 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C0BA01211AF3F649008BF37F /* PListHelper */ = {
-			isa = PBXGroup;
-			children = (
-				C0BA01221AF3F649008BF37F /* PListHelper.h */,
-				C0BA01231AF3F649008BF37F /* PListHelper.m */,
-			);
-			path = PListHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,7 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0BA01241AF3F649008BF37F /* PListHelper.m in Sources */,
+				C06EBD551AF3FAFD0070BA0A /* PListHelper.m in Sources */,
 				C0777BBD1AF3F60A005C1445 /* ViewController.m in Sources */,
 				C0777B9B1AF3F5E0005C1445 /* AppDelegate.m in Sources */,
 				C0777B981AF3F5E0005C1445 /* main.m in Sources */,

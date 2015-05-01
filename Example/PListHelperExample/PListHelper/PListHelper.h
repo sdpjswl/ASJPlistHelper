@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Sudeep Jaiswal. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 @interface PListHelper : NSObject
 
