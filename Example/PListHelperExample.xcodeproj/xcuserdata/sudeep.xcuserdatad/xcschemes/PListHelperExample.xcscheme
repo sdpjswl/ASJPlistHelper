@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C077676B1AD704C20038181D"
-               BuildableName = "PListHelperDemo.app"
-               BlueprintName = "PListHelperDemo"
-               ReferencedContainer = "container:PListHelperDemo.xcodeproj">
+               BlueprintIdentifier = "C0777B911AF3F5E0005C1445"
+               BuildableName = "PListHelperExample.app"
+               BlueprintName = "PListHelperExample"
+               ReferencedContainer = "container:PListHelperExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C07767841AD704C20038181D"
-               BuildableName = "PListHelperDemoTests.xctest"
-               BlueprintName = "PListHelperDemoTests"
-               ReferencedContainer = "container:PListHelperDemo.xcodeproj">
+               BlueprintIdentifier = "C0777BAA1AF3F5E0005C1445"
+               BuildableName = "PListHelperExampleTests.xctest"
+               BlueprintName = "PListHelperExampleTests"
+               ReferencedContainer = "container:PListHelperExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,20 +46,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C07767841AD704C20038181D"
-               BuildableName = "PListHelperDemoTests.xctest"
-               BlueprintName = "PListHelperDemoTests"
-               ReferencedContainer = "container:PListHelperDemo.xcodeproj">
+               BlueprintIdentifier = "C0777BAA1AF3F5E0005C1445"
+               BuildableName = "PListHelperExampleTests.xctest"
+               BlueprintName = "PListHelperExampleTests"
+               ReferencedContainer = "container:PListHelperExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C077676B1AD704C20038181D"
-            BuildableName = "PListHelperDemo.app"
-            BlueprintName = "PListHelperDemo"
-            ReferencedContainer = "container:PListHelperDemo.xcodeproj">
+            BlueprintIdentifier = "C0777B911AF3F5E0005C1445"
+            BuildableName = "PListHelperExample.app"
+            BlueprintName = "PListHelperExample"
+            ReferencedContainer = "container:PListHelperExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -75,10 +75,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C077676B1AD704C20038181D"
-            BuildableName = "PListHelperDemo.app"
-            BlueprintName = "PListHelperDemo"
-            ReferencedContainer = "container:PListHelperDemo.xcodeproj">
+            BlueprintIdentifier = "C0777B911AF3F5E0005C1445"
+            BuildableName = "PListHelperExample.app"
+            BlueprintName = "PListHelperExample"
+            ReferencedContainer = "container:PListHelperExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -93,10 +93,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C077676B1AD704C20038181D"
-            BuildableName = "PListHelperDemo.app"
-            BlueprintName = "PListHelperDemo"
-            ReferencedContainer = "container:PListHelperDemo.xcodeproj">
+            BlueprintIdentifier = "C0777B911AF3F5E0005C1445"
+            BuildableName = "PListHelperExample.app"
+            BlueprintName = "PListHelperExample"
+            ReferencedContainer = "container:PListHelperExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

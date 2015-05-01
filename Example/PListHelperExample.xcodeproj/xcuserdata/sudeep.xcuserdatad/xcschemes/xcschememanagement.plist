@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>PListHelperDemo.xcscheme</key>
+		<key>PListHelperExample.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>C077676B1AD704C20038181D</key>
+		<key>C0777B911AF3F5E0005C1445</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C07767841AD704C20038181D</key>
+		<key>C0777BAA1AF3F5E0005C1445</key>
 		<dict>
 			<key>primary</key>
 			<true/>

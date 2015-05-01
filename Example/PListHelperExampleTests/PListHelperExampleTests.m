@@ -1,19 +1,19 @@
 //
-//  PListHelperDemoTests.m
-//  PListHelperDemoTests
+//  PListHelperExampleTests.m
+//  PListHelperExampleTests
 //
-//  Created by sudeep on 10/04/15.
+//  Created by sudeep on 01/05/15.
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface PListHelperDemoTests : XCTestCase
+@interface PListHelperExampleTests : XCTestCase
 
 @end
 
-@implementation PListHelperDemoTests
+@implementation PListHelperExampleTests
 
 - (void)setUp {
     [super setUp];
