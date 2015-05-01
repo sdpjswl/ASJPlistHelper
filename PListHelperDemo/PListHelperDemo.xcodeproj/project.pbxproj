@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B8C0C5C1AF34C92006A972E /* PListHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8C0C5B1AF34C92006A972E /* PListHelper.m */; };
 		C07767721AD704C20038181D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C07767711AD704C20038181D /* main.m */; };
 		C07767751AD704C20038181D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C07767741AD704C20038181D /* AppDelegate.m */; };
 		C07767781AD704C20038181D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C07767771AD704C20038181D /* ViewController.m */; };
@@ -14,7 +15,6 @@
 		C077677D1AD704C20038181D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C077677C1AD704C20038181D /* Images.xcassets */; };
 		C07767801AD704C20038181D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C077677E1AD704C20038181D /* LaunchScreen.xib */; };
 		C077678C1AD704C20038181D /* PListHelperDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C077678B1AD704C20038181D /* PListHelperDemoTests.m */; };
-		C07767981AD704E90038181D /* PListHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C07767971AD704E90038181D /* PListHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B8C0C5A1AF34C92006A972E /* PListHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListHelper.h; sourceTree = "<group>"; };
+		6B8C0C5B1AF34C92006A972E /* PListHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListHelper.m; sourceTree = "<group>"; };
 		C077676C1AD704C20038181D /* PListHelperDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PListHelperDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C07767701AD704C20038181D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C07767711AD704C20038181D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -41,8 +43,6 @@
 		C07767851AD704C20038181D /* PListHelperDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PListHelperDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C077678A1AD704C20038181D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C077678B1AD704C20038181D /* PListHelperDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PListHelperDemoTests.m; sourceTree = "<group>"; };
-		C07767961AD704E90038181D /* PListHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListHelper.h; sourceTree = "<group>"; };
-		C07767971AD704E90038181D /* PListHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,10 +63,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B8C0C591AF34C92006A972E /* PListHelper */ = {
+			isa = PBXGroup;
+			children = (
+				6B8C0C5A1AF34C92006A972E /* PListHelper.h */,
+				6B8C0C5B1AF34C92006A972E /* PListHelper.m */,
+			);
+			name = PListHelper;
+			path = ../../PListHelper;
+			sourceTree = "<group>";
+		};
 		C07767631AD704C20038181D = {
 			isa = PBXGroup;
 			children = (
-				C07767951AD704E90038181D /* PListHelper */,
 				C077676E1AD704C20038181D /* PListHelperDemo */,
 				C07767881AD704C20038181D /* PListHelperDemoTests */,
 				C077676D1AD704C20038181D /* Products */,
@@ -85,6 +94,7 @@
 		C077676E1AD704C20038181D /* PListHelperDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6B8C0C591AF34C92006A972E /* PListHelper */,
 				C07767731AD704C20038181D /* AppDelegate.h */,
 				C07767741AD704C20038181D /* AppDelegate.m */,
 				C07767761AD704C20038181D /* ViewController.h */,
@@ -121,16 +131,6 @@
 				C077678A1AD704C20038181D /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C07767951AD704E90038181D /* PListHelper */ = {
-			isa = PBXGroup;
-			children = (
-				C07767961AD704E90038181D /* PListHelper.h */,
-				C07767971AD704E90038181D /* PListHelper.m */,
-			);
-			name = PListHelper;
-			path = PListHelperDemo/PListHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C07767981AD704E90038181D /* PListHelper.m in Sources */,
+				6B8C0C5C1AF34C92006A972E /* PListHelper.m in Sources */,
 				C07767781AD704C20038181D /* ViewController.m in Sources */,
 				C07767751AD704C20038181D /* AppDelegate.m in Sources */,
 				C07767721AD704C20038181D /* main.m in Sources */,

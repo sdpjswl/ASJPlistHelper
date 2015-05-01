@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>78C126F4-2144-4959-BCC2-9B3612770CA9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PListHelperDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4246A5E284CE0BF92D52F1CD673A0ED20D06106D</key>
+		<string>https://github.com/sudeep-jaiswal/PListHelper.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PListHelperDemo/PListHelperDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4246A5E284CE0BF92D52F1CD673A0ED20D06106D</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/sudeep-jaiswal/PListHelper.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4246A5E284CE0BF92D52F1CD673A0ED20D06106D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4246A5E284CE0BF92D52F1CD673A0ED20D06106D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PListHelper</string>
+		</dict>
+	</array>
+</dict>
+</plist>
