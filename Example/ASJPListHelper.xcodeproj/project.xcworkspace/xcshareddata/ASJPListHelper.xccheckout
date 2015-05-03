@@ -5,16 +5,16 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>9074DC27-0AF4-481E-8CA6-7EA18AB25F83</string>
+	<string>63A58F84-B6AF-49C3-8657-DD5960276FAE</string>
 	<key>IDESourceControlProjectName</key>
-	<string>PListHelperExample</string>
+	<string>ASJPListHelper</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4246A5E284CE0BF92D52F1CD673A0ED20D06106D</key>
 		<string>https://github.com/sudeep-jaiswal/PListHelper.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Example/PListHelperExample.xcodeproj</string>
+	<string>Example/ASJPListHelper.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4246A5E284CE0BF92D52F1CD673A0ED20D06106D</key>

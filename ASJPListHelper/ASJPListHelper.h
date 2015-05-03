@@ -1,14 +1,14 @@
 //
-//  PListHelper.h
+//  ASJPListHelper.h
 //  PList
 //
 //  Created by Sudeep Jaiswal on 12/08/14.
 //  Copyright (c) 2014 Sudeep Jaiswal. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-@interface PListHelper : NSObject
+@interface ASJPListHelper : NSObject
 
 /**
  *  Will replace existing data in PList with provided data

@@ -1,5 +1,5 @@
 //
-//  PListHelper.m
+//  ASJPListHelper.m
 //  Plist
 //
 //  Created by Sudeep Jaiswal on 12/08/14.
@@ -7,15 +7,15 @@
 //
 
 @import UIKit;
-#import "PListHelper.h"
+#import "ASJPListHelper.h"
 
-@interface PListHelper ()
+@interface ASJPListHelper ()
 
 @property (nonatomic) NSString *fileName;
 
 @end
 
-@implementation PListHelper
+@implementation ASJPListHelper
 
 
 #pragma mark - Public methods
@@ -67,7 +67,7 @@ inPListFileNamed:(NSString *)name {
 - (NSArray *)getContentsOfPlistFile {
     
     NSString *pListPath = [self getPlistDocumentDirectoryPath];
-    BOOL doesFileExist = [PListHelper doesFileExistAtPath:pListPath];
+    BOOL doesFileExist = [ASJPListHelper doesFileExistAtPath:pListPath];
     if (doesFileExist) {
         return [NSArray arrayWithContentsOfFile:pListPath];
     }

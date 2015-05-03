@@ -1,8 +1,8 @@
 //
 //  AppDelegate.m
-//  PListHelperExample
+//  ASJPListHelper
 //
-//  Created by sudeep on 01/05/15.
+//  Created by sudeep on 03/05/15.
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 

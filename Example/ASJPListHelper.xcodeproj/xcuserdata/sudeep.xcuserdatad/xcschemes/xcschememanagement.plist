@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>PListHelperExample.xcscheme</key>
+		<key>ASJPListHelper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>C0777B911AF3F5E0005C1445</key>
+		<key>C09C09021AF5FCFC00200D89</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C0777BAA1AF3F5E0005C1445</key>
+		<key>C09C091B1AF5FCFC00200D89</key>
 		<dict>
 			<key>primary</key>
 			<true/>

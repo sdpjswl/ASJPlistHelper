@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C0777B911AF3F5E0005C1445"
-               BuildableName = "PListHelperExample.app"
-               BlueprintName = "PListHelperExample"
-               ReferencedContainer = "container:PListHelperExample.xcodeproj">
+               BlueprintIdentifier = "C09C09021AF5FCFC00200D89"
+               BuildableName = "ASJPListHelper.app"
+               BlueprintName = "ASJPListHelper"
+               ReferencedContainer = "container:ASJPListHelper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C0777BAA1AF3F5E0005C1445"
-               BuildableName = "PListHelperExampleTests.xctest"
-               BlueprintName = "PListHelperExampleTests"
-               ReferencedContainer = "container:PListHelperExample.xcodeproj">
+               BlueprintIdentifier = "C09C091B1AF5FCFC00200D89"
+               BuildableName = "ASJPListHelperTests.xctest"
+               BlueprintName = "ASJPListHelperTests"
+               ReferencedContainer = "container:ASJPListHelper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,20 +46,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C0777BAA1AF3F5E0005C1445"
-               BuildableName = "PListHelperExampleTests.xctest"
-               BlueprintName = "PListHelperExampleTests"
-               ReferencedContainer = "container:PListHelperExample.xcodeproj">
+               BlueprintIdentifier = "C09C091B1AF5FCFC00200D89"
+               BuildableName = "ASJPListHelperTests.xctest"
+               BlueprintName = "ASJPListHelperTests"
+               ReferencedContainer = "container:ASJPListHelper.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0777B911AF3F5E0005C1445"
-            BuildableName = "PListHelperExample.app"
-            BlueprintName = "PListHelperExample"
-            ReferencedContainer = "container:PListHelperExample.xcodeproj">
+            BlueprintIdentifier = "C09C09021AF5FCFC00200D89"
+            BuildableName = "ASJPListHelper.app"
+            BlueprintName = "ASJPListHelper"
+            ReferencedContainer = "container:ASJPListHelper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -75,10 +75,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0777B911AF3F5E0005C1445"
-            BuildableName = "PListHelperExample.app"
-            BlueprintName = "PListHelperExample"
-            ReferencedContainer = "container:PListHelperExample.xcodeproj">
+            BlueprintIdentifier = "C09C09021AF5FCFC00200D89"
+            BuildableName = "ASJPListHelper.app"
+            BlueprintName = "ASJPListHelper"
+            ReferencedContainer = "container:ASJPListHelper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -93,10 +93,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C0777B911AF3F5E0005C1445"
-            BuildableName = "PListHelperExample.app"
-            BlueprintName = "PListHelperExample"
-            ReferencedContainer = "container:PListHelperExample.xcodeproj">
+            BlueprintIdentifier = "C09C09021AF5FCFC00200D89"
+            BuildableName = "ASJPListHelper.app"
+            BlueprintName = "ASJPListHelper"
+            ReferencedContainer = "container:ASJPListHelper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

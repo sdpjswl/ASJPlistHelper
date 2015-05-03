@@ -1,19 +1,19 @@
 //
-//  PListHelperExampleTests.m
-//  PListHelperExampleTests
+//  ASJPListHelperTests.m
+//  ASJPListHelperTests
 //
-//  Created by sudeep on 01/05/15.
+//  Created by sudeep on 03/05/15.
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface PListHelperExampleTests : XCTestCase
+@interface ASJPListHelperTests : XCTestCase
 
 @end
 
-@implementation PListHelperExampleTests
+@implementation ASJPListHelperTests
 
 - (void)setUp {
     [super setUp];

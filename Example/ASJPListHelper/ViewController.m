@@ -1,13 +1,13 @@
 //
 //  ViewController.m
-//  PListHelperDemo
+//  ASJPListHelper
 //
-//  Created by sudeep on 10/04/15.
+//  Created by sudeep on 03/05/15.
 //  Copyright (c) 2015 Sudeep Jaiswal. All rights reserved.
 //
 
 #import "ViewController.h"
-#import "PListHelper.h"
+#import "ASJPListHelper.h"
 
 NSString *const kPListFileName = @"InRainbows";
 
@@ -49,7 +49,7 @@ NSString *const kPListFileName = @"InRainbows";
                        @"House of Cards",
                        @"Jigsaw Falling Into Place",
                        @"Videotape"];
-    PListHelper *plist = [[PListHelper alloc] init];
+    ASJPListHelper *plist = [[ASJPListHelper alloc] init];
     BOOL success = [plist checkIn:array inPListFileNamed:kPListFileName];
     if (success) {
         [ViewController showAlertWithTitle:@"Success!" message:@"Data successfully saved in PList."];
@@ -61,7 +61,7 @@ NSString *const kPListFileName = @"InRainbows";
 
 - (void)updateExistingData {
     NSArray *array = @[@"Radiohead"];
-    PListHelper *plist = [[PListHelper alloc] init];
+    ASJPListHelper *plist = [[ASJPListHelper alloc] init];
     BOOL success = [plist updateExistingDataWith:array inPListFileNamed:kPListFileName];
     if (success) {
         [ViewController showAlertWithTitle:@"Success!" message:@"Data successfully updated in PList."];
@@ -72,7 +72,7 @@ NSString *const kPListFileName = @"InRainbows";
 }
 
 - (void)showData {
-    PListHelper *plist = [[PListHelper alloc] init];
+    ASJPListHelper *plist = [[ASJPListHelper alloc] init];
     NSArray *contents = [plist contentsOfPlistFileNamed:kPListFileName];
     NSLog(@"%@", contents);
 }

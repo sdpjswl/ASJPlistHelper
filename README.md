@@ -1,4 +1,4 @@
-PListHelper
-===========
+ASJPListHelper
+==============
 
-An Objective-C wrapper class to simplify working with PLists
+An Objective-C wrapper to simplify working with PLists
