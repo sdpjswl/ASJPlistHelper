@@ -1,7 +1,7 @@
 ASJPListHelper
 ==============
 
-Property lists are everywhere in Objective-C. This utility attempts to simplify working with them. I have added the basic functionality needed to save and retreive data from them.
+Property lists are everywhere in Objective-C. This utility class attempts to simplify working with them. I have added the basic functionality needed to save and retreive data from them.
 
 `- (BOOL)checkIn:(NSArray *)data inPListFileNamed:(NSString *)name;`
 
@@ -13,7 +13,7 @@ Similar to `checkIn`, you have to provide the data and the name of you plist. Th
 
 `- (NSArray *)contentsOfPlistFileNamed:(NSString *)name;`
 
-Retuens the data saved in the plist of the name specified.
+Returns the data saved in the plist of the name specified.
 
 # License
 
