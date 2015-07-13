@@ -17,4 +17,4 @@ Returns the data saved in the plist of the name specified.
 
 # License
 
-ASJPlistHelper is available under the MIT license. See the LICENSE file for more info.
+ASJPListHelper is available under the MIT license. See the LICENSE file for more info.
