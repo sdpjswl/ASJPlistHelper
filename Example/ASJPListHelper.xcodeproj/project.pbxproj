@@ -13,19 +13,8 @@
 		C09C09121AF5FCFC00200D89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09C09101AF5FCFC00200D89 /* Main.storyboard */; };
 		C09C09141AF5FCFC00200D89 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C09C09131AF5FCFC00200D89 /* Images.xcassets */; };
 		C09C09171AF5FCFC00200D89 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09C09151AF5FCFC00200D89 /* LaunchScreen.xib */; };
-		C09C09231AF5FCFC00200D89 /* ASJPListHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C09C09221AF5FCFC00200D89 /* ASJPListHelperTests.m */; };
 		C09C092F1AF5FD6200200D89 /* ASJPListHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C09C092E1AF5FD6200200D89 /* ASJPListHelper.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C09C091D1AF5FCFC00200D89 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C09C08FB1AF5FCFC00200D89 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C09C09021AF5FCFC00200D89;
-			remoteInfo = ASJPListHelper;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C09C09031AF5FCFC00200D89 /* ASJPListHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASJPListHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,22 +27,12 @@
 		C09C09111AF5FCFC00200D89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C09C09131AF5FCFC00200D89 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C09C09161AF5FCFC00200D89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		C09C091C1AF5FCFC00200D89 /* ASJPListHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASJPListHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C09C09211AF5FCFC00200D89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C09C09221AF5FCFC00200D89 /* ASJPListHelperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASJPListHelperTests.m; sourceTree = "<group>"; };
 		C09C092D1AF5FD6200200D89 /* ASJPListHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJPListHelper.h; sourceTree = "<group>"; };
 		C09C092E1AF5FD6200200D89 /* ASJPListHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJPListHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C09C09001AF5FCFC00200D89 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C09C09191AF5FCFC00200D89 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -67,7 +46,6 @@
 			isa = PBXGroup;
 			children = (
 				C09C09051AF5FCFC00200D89 /* ASJPListHelper */,
-				C09C091F1AF5FCFC00200D89 /* ASJPListHelperTests */,
 				C09C09041AF5FCFC00200D89 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -76,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				C09C09031AF5FCFC00200D89 /* ASJPListHelper.app */,
-				C09C091C1AF5FCFC00200D89 /* ASJPListHelperTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,23 +79,6 @@
 			children = (
 				C09C09071AF5FCFC00200D89 /* Info.plist */,
 				C09C09081AF5FCFC00200D89 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C09C091F1AF5FCFC00200D89 /* ASJPListHelperTests */ = {
-			isa = PBXGroup;
-			children = (
-				C09C09221AF5FCFC00200D89 /* ASJPListHelperTests.m */,
-				C09C09201AF5FCFC00200D89 /* Supporting Files */,
-			);
-			path = ASJPListHelperTests;
-			sourceTree = "<group>";
-		};
-		C09C09201AF5FCFC00200D89 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C09C09211AF5FCFC00200D89 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -153,39 +113,17 @@
 			productReference = C09C09031AF5FCFC00200D89 /* ASJPListHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C09C091B1AF5FCFC00200D89 /* ASJPListHelperTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C09C09291AF5FCFC00200D89 /* Build configuration list for PBXNativeTarget "ASJPListHelperTests" */;
-			buildPhases = (
-				C09C09181AF5FCFC00200D89 /* Sources */,
-				C09C09191AF5FCFC00200D89 /* Frameworks */,
-				C09C091A1AF5FCFC00200D89 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C09C091E1AF5FCFC00200D89 /* PBXTargetDependency */,
-			);
-			name = ASJPListHelperTests;
-			productName = ASJPListHelperTests;
-			productReference = C09C091C1AF5FCFC00200D89 /* ASJPListHelperTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		C09C08FB1AF5FCFC00200D89 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Sudeep Jaiswal";
 				TargetAttributes = {
 					C09C09021AF5FCFC00200D89 = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					C09C091B1AF5FCFC00200D89 = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = C09C09021AF5FCFC00200D89;
 					};
 				};
 			};
@@ -203,7 +141,6 @@
 			projectRoot = "";
 			targets = (
 				C09C09021AF5FCFC00200D89 /* ASJPListHelper */,
-				C09C091B1AF5FCFC00200D89 /* ASJPListHelperTests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +153,6 @@
 				C09C09121AF5FCFC00200D89 /* Main.storyboard in Resources */,
 				C09C09171AF5FCFC00200D89 /* LaunchScreen.xib in Resources */,
 				C09C09141AF5FCFC00200D89 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C09C091A1AF5FCFC00200D89 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,23 +170,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C09C09181AF5FCFC00200D89 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C09C09231AF5FCFC00200D89 /* ASJPListHelperTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C09C091E1AF5FCFC00200D89 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C09C09021AF5FCFC00200D89 /* ASJPListHelper */;
-			targetProxy = C09C091D1AF5FCFC00200D89 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C09C09101AF5FCFC00200D89 /* Main.storyboard */ = {
@@ -298,6 +212,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -312,7 +227,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -347,7 +262,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -361,6 +276,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = ASJPListHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sudeep.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -372,41 +288,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = ASJPListHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sudeep.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		C09C092A1AF5FCFC00200D89 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = ASJPListHelperTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ASJPListHelper.app/ASJPListHelper";
-			};
-			name = Debug;
-		};
-		C09C092B1AF5FCFC00200D89 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = ASJPListHelperTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ASJPListHelper.app/ASJPListHelper";
 			};
 			name = Release;
 		};
@@ -427,15 +310,6 @@
 			buildConfigurations = (
 				C09C09271AF5FCFC00200D89 /* Debug */,
 				C09C09281AF5FCFC00200D89 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C09C09291AF5FCFC00200D89 /* Build configuration list for PBXNativeTarget "ASJPListHelperTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C09C092A1AF5FCFC00200D89 /* Debug */,
-				C09C092B1AF5FCFC00200D89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

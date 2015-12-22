@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 @import Foundation;
+@import UIKit;
 
 @interface ASJPListHelper : NSObject
 
@@ -32,8 +33,7 @@
  *
  *  @return A bool indicating whether the operation was successful
  */
-- (BOOL)checkIn:(NSArray *)data
-inPListFileNamed:(NSString *)name;
+- (BOOL)save:(NSArray *)data inPListFileNamed:(NSString *)name;
 
 /**
  *  Will append provided data to already existing data in the PList
@@ -43,8 +43,7 @@ inPListFileNamed:(NSString *)name;
  *
  *  @return A bool indicating whether the operation was successful
  */
-- (BOOL)updateExistingDataWith:(NSArray *)data
- inPListFileNamed:(NSString *)name;
+- (BOOL)update:(NSArray *)data inPListFileNamed:(NSString *)name;
 
 /**
  *  Get contents of the provided PList file
