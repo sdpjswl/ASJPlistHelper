@@ -34,6 +34,8 @@ Returns the data saved in the plist of the name specified.
 
 - Add UI to example project
 - Refactor code and make it podworthy
+- Look up NSPropertyListSerialization
+- Allow `id` to be sent to save/update
 
 # License
 
