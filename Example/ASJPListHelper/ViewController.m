@@ -9,75 +9,108 @@
 #import "ViewController.h"
 #import "ASJPListHelper.h"
 
-NSString *const kPListFileName = @"InRainbows";
+static NSString *const kPListFileName = @"sample";
+static NSString *const kCellIdentifier = @"cell";
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDataSource> {
+  IBOutlet UITextField *inputTextField;
+  IBOutlet UITableView *plistTableView;
+}
 
-- (void)checkInData;
-- (void)updateExistingData;
-- (void)showData;
+@property (strong, nonatomic) ASJPListHelper *plistHelper;
+@property (readonly, nonatomic) BOOL isInputValid;
+@property (readonly, copy, nonatomic) NSString *trimmedInput;
+
+- (void)setup;
+- (IBAction)addTapped:(id)sender;
+- (IBAction)updateTapped:(id)sender;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
-  // Do any additional setup after loading the view, typically from a nib.
-  [self checkInData];
-  [self updateExistingData];
-  [self showData];
+  [self setup];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Setup
 
-#pragma mark - PList
-
-- (void)checkInData {
+- (void)setup
+{
+  _plistHelper = [[ASJPListHelper alloc] initWithPListFileNamed:kPListFileName];
+  NSLog(@"%@", _plistHelper.pListPath);
   
-  NSArray *array = @[@"15 Step",
-                     @"Bodysnatchers",
-                     @"Nude",
-                     @"Weird Fishes/Arpeggi",
-                     @"All I Need",
-                     @"Faust Arp",
-                     @"Reckoner",
-                     @"House of Cards",
-                     @"Jigsaw Falling Into Place",
-                     @"Videotape"];
-  ASJPListHelper *plist = [[ASJPListHelper alloc] init];
-  BOOL success = [plist save:array inPListFileNamed:kPListFileName];
-  if (success) {
-    [ViewController showAlertWithTitle:@"Success!" message:@"Data successfully saved in PList."];
-  }
-  else {
-    [ViewController showAlertWithTitle:@"Error" message:@"Data could not be saved."];
-  }
+  Class cellClass = [UITableViewCell class];
+  [plistTableView registerClass:cellClass forCellReuseIdentifier:kCellIdentifier];
 }
 
-- (void)updateExistingData {
-  NSArray *array = @[@"Radiohead"];
-  ASJPListHelper *plist = [[ASJPListHelper alloc] init];
-  BOOL success = [plist update:array inPListFileNamed:kPListFileName];
-  if (success) {
-    [ViewController showAlertWithTitle:@"Success!" message:@"Data successfully updated in PList."];
-  }
-  else {
-    [ViewController showAlertWithTitle:@"Error" message:@"Data could not be updated."];
-  }
+- (void)reloadTable
+{
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+    [plistTableView reloadData];
+  }];
 }
 
-- (void)showData {
-  ASJPListHelper *plist = [[ASJPListHelper alloc] init];
-  NSArray *contents = [plist contentsOfPlistFileNamed:kPListFileName];
-  NSLog(@"%@", contents);
+#pragma mark - IBActions
+
+- (IBAction)addTapped:(id)sender
+{
+  if (!self.isInputValid) {
+    return;
+  }
+  [_plistHelper save:self.trimmedInput];
+  [self reloadTable];
 }
 
-+ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
+- (IBAction)updateTapped:(id)sender
+{
+  if (!self.isInputValid) {
+    return;
+  }
+  [_plistHelper update:self.trimmedInput];
+  [self reloadTable];
+}
+
+- (BOOL)isInputValid
+{
+  if (self.trimmedInput.length) {
+    return YES;
+  }
+  return NO;
+}
+
+- (NSString *)trimmedInput
+{
+  NSCharacterSet *characterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+  return [inputTextField.text stringByTrimmingCharactersInSet:characterSet];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  NSLog(@"%@", [_plistHelper.pListContents class]);
+  return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+  return cell;
+}
+
+#pragma mark - Helpers
+
++ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message
+{
   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
   [alert show];
 }

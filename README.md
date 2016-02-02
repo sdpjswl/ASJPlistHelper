@@ -12,30 +12,36 @@ pod 'ASJPListHelper'
 
 # Usage
 
-```
-- (BOOL)save:(NSArray *)data inPListFileNamed:(NSString *)name;
-```
-
-Saves data you provide in a a plist of the specified name. This method **will overwrite** any previous data present in the plist so be careful! Returns YES if saving is successful.
-
-```
-- (BOOL)update:(NSArray *)data inPListFileNamed:(NSString *)name;
+```objc
+- (instancetype)initWithPListFileNamed:(NSString *)name NS_DESIGNATED_INITIALIZER;
 ```
 
-Similar to `save`, you have to provide the data and the name of you plist. This method **will not overwrite** previous data present in the file and append new data after it. Returns YES if saving is successful.
+Use the designated initializer to create an instance. You will also need to provide a valid name for your property list file.
 
-```
-- (NSArray *)contentsOfPlistFileNamed:(NSString *)name;
+```objc
+- (BOOL)save:(id)data;
 ```
 
-Returns the data saved in the plist of the name specified.
+Saves data provided to plist file. This method **will overwrite** any previous data present in the plist. Returns YES if saving is successful.
+
+```objc
+- (BOOL)update:(id)data;
+```
+
+Similar to `save`, although this method **will not overwrite** previous data present in the plist file and append new data after it. Returns YES if saving is successful.
+
+```objc
+@property (readonly, copy, nonatomic) id pListContents;
+```
+
+Returns the data saved in the plist file.
 
 ### To-do
 
 - Add UI to example project
 - Refactor code and make it podworthy
-- Look up NSPropertyListSerialization
-- Allow `id` to be sent to save/update
+- ~~Look up NSPropertyListSerialization~~
+- ~~Allow `id` to be sent to save/update~~
 
 # License
 

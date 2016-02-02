@@ -20,38 +20,56 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import Foundation;
 @import UIKit;
+@import Foundation;
 
 @interface ASJPListHelper : NSObject
 
 /**
- *  Will replace existing data in PList with provided data
+ *  Fetch data contained in the plist file
+ */
+@property (readonly, copy, nonatomic) id pListContents;
+
+/**
+ *  Checks whether the plist file has anything stored in it
+ */
+@property (readonly, nonatomic) BOOL isEmpty;
+
+/**
+ *  Fetch path of plist file in the file system
+ */
+@property (readonly, copy, nonatomic) NSString *pListPath;
+
+/**
+ *  The designated intializer
  *
- *  @param data An array containing data to be replaced
- *  @param name Name of the PList file without extension
+ *  @param name Name of the plist file
+ *
+ *  @return An instance of ASJPListHelper
+ */
+- (instancetype)initWithPListFileNamed:(NSString *)name NS_DESIGNATED_INITIALIZER;
+
+/**
+ *  Cannot use init
+ */
+- (instancetype)init NS_UNAVAILABLE;
+
+/**
+ *  Will replace existing data in plist with provided data
+ *
+ *  @param data A container object containing data to be replaced
  *
  *  @return A bool indicating whether the operation was successful
  */
-- (BOOL)save:(NSArray *)data inPListFileNamed:(NSString *)name;
+- (BOOL)save:(id)data;
 
 /**
- *  Will append provided data to already existing data in the PList
+ *  Will append provided data to already existing data in the plist
  *
- *  @param data An array containing data to be added
- *  @param name Name of the PList file without extension
+ *  @param data A container object containing data to be added
  *
  *  @return A bool indicating whether the operation was successful
  */
-- (BOOL)update:(NSArray *)data inPListFileNamed:(NSString *)name;
-
-/**
- *  Get contents of the provided PList file
- *
- *  @param name Name of the PList file without extension
- *
- *  @return An array of file contents
- */
-- (NSArray *)contentsOfPlistFileNamed:(NSString *)name;
+- (BOOL)update:(id)data;
 
 @end
