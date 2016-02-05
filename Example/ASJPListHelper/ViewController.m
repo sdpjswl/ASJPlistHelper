@@ -18,12 +18,14 @@ static NSString *const kCellIdentifier = @"cell";
 }
 
 @property (strong, nonatomic) ASJPListHelper *plistHelper;
+@property (copy, nonatomic) id plistContents;
 @property (readonly, nonatomic) BOOL isInputValid;
 @property (readonly, copy, nonatomic) NSString *trimmedInput;
 
 - (void)setup;
 - (IBAction)addTapped:(id)sender;
 - (IBAction)updateTapped:(id)sender;
+- (void)reloadTable;
 
 @end
 
@@ -46,6 +48,7 @@ static NSString *const kCellIdentifier = @"cell";
 - (void)setup
 {
   _plistHelper = [[ASJPListHelper alloc] initWithPListFileNamed:kPListFileName];
+  _plistContents = _plistHelper.pListContents;
   NSLog(@"%@", _plistHelper.pListPath);
   
   Class cellClass = [UITableViewCell class];
@@ -54,7 +57,9 @@ static NSString *const kCellIdentifier = @"cell";
 
 - (void)reloadTable
 {
-  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^
+  {
+    _plistContents = _plistHelper.pListContents;
     [plistTableView reloadData];
   }];
 }
@@ -97,13 +102,25 @@ static NSString *const kCellIdentifier = @"cell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  NSLog(@"%@", [_plistHelper.pListContents class]);
-  return 0;
+  return [_plistHelper.pListContents count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
+  
+  id object = nil;
+  if ([_plistContents isKindOfClass:[NSArray class]])
+  {
+    object = [_plistContents objectAtIndex:indexPath.row];
+  }
+  else
+  {
+    NSArray *keys = [object allKeys];
+    object = [_plistContents objectForKey:keys[indexPath.row]];
+  }
+  
+  cell.textLabel.text = object;
   return cell;
 }
 

@@ -22,16 +22,30 @@
 
 #import "ASJPListHelper.h"
 
+// help: https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/PropertyLists/SerializePlist/SerializePlist.html
+
+static NSString *const kInvalidFilenameMessage = @"Invalid filename; must be of at least 1 character.";
+
+static NSString *const kIncompatibleMessage = @"Data provided is not compatible to be saved. To troubleshoot you can:\n1. Take a look at your data and your plist's root object\n2.Make sure your objects conform to the NSCoding protocol and/or are of these types: NSArray, NSDictionary, NSString, NSData, NSDate, NSNumber.";
+
+typedef NS_ENUM(NSInteger, RootObjectType) {
+  RootObjectTypeArray,
+  RootObjectTypeDictionary,
+  RootObjectTypeNone
+};
+
 @interface ASJPListHelper ()
 
 @property (copy, nonatomic) NSString *filename;
+@property (assign, nonatomic) RootObjectType rootObjectType;
 @property (readonly, nonatomic) BOOL fileExists;
 @property (readonly, copy, nonatomic) NSArray *rootObjectTypes;
 @property (copy, nonatomic) NSString *pListPath;
 @property (weak, nonatomic) NSFileManager *fileManager;
 
 - (void)setup;
-- (BOOL)isDataOfRootObjectType:(id)data;
+- (void)setupRootObjectType;
+- (BOOL)isDataCompatibleToSave:(id)data;
 
 @end
 
@@ -52,13 +66,21 @@
 - (void)setup
 {
   // validate filename
-  NSAssert(_filename.length > 0, @"Invalid filename; must be of at least 1 character.");
+  NSAssert(_filename.length > 0, kInvalidFilenameMessage);
+  
+  // default root object type
+  _rootObjectType = RootObjectTypeNone;
   
   // create file if it does not exist
   if (!self.fileExists)
   {
     BOOL success = [self.fileManager createFileAtPath:self.pListPath contents:nil attributes:nil];
     NSAssert(success, @"Could not create property list file at path: %@", self.pListPath);
+  }
+  
+  // set root object type if exists
+  else {
+    [self setupRootObjectType];
   }
 }
 
@@ -72,62 +94,118 @@
   return [NSFileManager defaultManager];
 }
 
+#pragma mark - Root type
+
+- (void)setupRootObjectType
+{
+  id contents = self.pListContents;
+  for (NSString *type in self.rootObjectTypes)
+  {
+#warning failing here to check what root type it is
+    NSLog(@"%@", [type class]);
+    if ([contents isKindOfClass:[type class]])
+    {
+      NSInteger idx = [self.rootObjectTypes indexOfObject:type];
+      _rootObjectType = (RootObjectType)idx;
+    }
+  }
+}
+
+- (NSArray *)rootObjectTypes
+{
+  return @[@"NSArray", @"NSDictionary"];
+}
+
 #pragma mark - Operations
 
 - (BOOL)save:(id)data
 {
-  BOOL isValid = [NSPropertyListSerialization propertyList:data isValidForFormat:NSPropertyListXMLFormat_v1_0];
-  if (!isValid) {
-    return isValid;
+  BOOL isCompatible = [self isDataCompatibleToSave:data];
+  
+  if (!isCompatible) {
+    return NO;
   }
   
-#warning i think the types of root object and data should match, otherwise data cannot be added. also, if plist is empty, fall back to array root object.
-  BOOL isRootObjectType = [self isDataOfRootObjectType:data];
-  
-  if (self.isEmpty) {
-    
-  }
-  return [data writeToFile:self.pListPath atomically:YES];
-}
-
-- (BOOL)isDataOfRootObjectType:(id)data
-{
-  BOOL isRootType = NO;
-  for (NSString *rootType in self.rootObjectTypes)
+  // fall back to NSArray as the default root object type in not available
+  if (_rootObjectType == RootObjectTypeNone)
   {
-    NSString *className = NSStringFromClass([data class]);
-    if ([className isEqualToString:rootType]) {
-      isRootType = YES;
-      break;
-    }
+    _rootObjectType = RootObjectTypeArray;
+    NSArray *array = [[NSArray alloc] initWithObjects:data, nil];
+    return [array writeToFile:self.pListPath atomically:YES];
   }
-  return isRootType;
+  
+  return [data writeToFile:self.pListPath atomically:YES];
 }
 
 - (BOOL)update:(id)data
 {
-#warning what if the main kind is dict and we pass array. or the other way around? how to mutate dicts?
-#warning cannot hardcode to nsarray
-#warning https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/PropertyLists/SerializePlist/SerializePlist.html
-#warning root object is either an array or dict
+  BOOL isCompatible = [self isDataCompatibleToSave:data];
   
-  BOOL isValid = [NSPropertyListSerialization propertyList:data isValidForFormat:NSPropertyListXMLFormat_v1_0];
-  if (!isValid) {
-    return isValid;
+  if (!isCompatible) {
+    return NO;
   }
   
-  
-  NSMutableArray *fileContents = [[NSMutableArray alloc] initWithArray:self.pListContents];
-  
-  BOOL success;
-  if (fileContents != nil) {
-    [fileContents addObjectsFromArray:data];
-    success = [fileContents writeToFile:self.pListPath atomically:YES];
+  if (_rootObjectType == RootObjectTypeArray)
+  {
+    NSMutableArray *fileContents = [[NSMutableArray alloc] initWithArray:self.pListContents];
+    
+    // append objects if root type is array and provided data is too
+    if ([data isKindOfClass:[NSArray class]])
+    {
+      [fileContents addObjectsFromArray:data];
+    }
+    // simply add data as another object
+    else
+    {
+      [fileContents addObject:data];
+    }
+    
+    return [fileContents writeToFile:self.pListPath atomically:YES];
   }
+  
+  else if (_rootObjectType == RootObjectTypeDictionary)
+  {
+    NSMutableDictionary *fileContents = [[NSMutableDictionary alloc] initWithDictionary:self.pListContents];
+    
+    // append objects if root type is disctionary and provided data is too
+    if ([data isKindOfClass:[NSDictionary class]])
+    {
+      [fileContents addEntriesFromDictionary:data];
+    }
+    
+    return [fileContents writeToFile:self.pListPath atomically:YES];
+  }
+  
+  // fall back to NSArray as the default root object type in not available
+  else if (_rootObjectType == RootObjectTypeNone) {
+    NSArray *array = [[NSArray alloc] initWithObjects:data, nil];
+    return [array writeToFile:self.pListPath atomically:YES];
+  }
+  
   else {
-    success = [data writeToFile:self.pListPath atomically:YES];
+    return NO;
   }
-  return success;
+}
+
+#pragma mark - Helpers
+
+- (BOOL)isDataCompatibleToSave:(id)data
+{
+  BOOL isCompatible = [NSPropertyListSerialization propertyList:data isValidForFormat:NSPropertyListXMLFormat_v1_0];
+  NSAssert(isCompatible, kIncompatibleMessage);
+  
+  // if root object is of type NSDictionary and we try to save an array it it,
+  // it won't be possible. however, an array will be able to take other kinds
+  // of objects, including a dictionary. i have already checked if data is
+  // plist-eligible at the start
+  if (_rootObjectType == RootObjectTypeDictionary)
+  {
+    if (![data isKindOfClass:[NSDictionary class]]) {
+      isCompatible = NO;
+    }
+  }
+  
+  return isCompatible;
 }
 
 #pragma mark - Property getters
@@ -159,11 +237,6 @@
 - (BOOL)isEmpty
 {
   return !self.pListContents;
-}
-
-- (NSArray *)rootObjectTypes
-{
-  return @[@"NSArray", @"NSDictionary"];
 }
 
 @end
