@@ -20,55 +20,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import UIKit;
 @import Foundation;
 
 @interface ASJPListHelper : NSObject
 
 /**
- *  Fetch data contained in the plist file
+ *  Fetch data contained in the plist file.
  */
 @property (readonly, copy, nonatomic) id pListContents;
 
 /**
- *  Checks whether the plist file has anything stored in it
+ *  Checks whether the plist file has anything stored in it.
  */
 @property (readonly, nonatomic) BOOL isEmpty;
 
 /**
- *  Fetch path of plist file in the file system
+ *  Fetch path of plist file in the file system.
  */
 @property (readonly, copy, nonatomic) NSString *pListPath;
 
 /**
  *  The designated intializer
  *
- *  @param name Name of the plist file
+ *  @param name Name of the plist file.
  *
- *  @return An instance of ASJPListHelper
+ *  @return An instance of ASJPListHelper.
  */
 - (instancetype)initWithPListFileNamed:(NSString *)name NS_DESIGNATED_INITIALIZER;
 
 /**
- *  Cannot use init
+ *  Cannot use init. Use the designated initializer "initWithPListFileNamed:".
  */
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- *  Will replace existing data in plist with provided data
+ *  Will replace existing data in plist with provided data.
  *
- *  @param data A container object containing data to be replaced
+ *  @param data A container object containing data to be replaced.
  *
- *  @return A bool indicating whether the operation was successful
+ *  @return A bool indicating whether the operation was successful.
  */
 - (BOOL)save:(id)data;
 
 /**
- *  Will append provided data to already existing data in the plist
+ *  Will append provided data to already existing data in the plist.
  *
- *  @param data A container object containing data to be added
+ *  @param data A container object containing data to be added.
  *
- *  @return A bool indicating whether the operation was successful
+ *  @return A bool indicating whether the operation was successful.
  */
 - (BOOL)update:(id)data;
 

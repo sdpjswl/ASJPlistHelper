@@ -37,14 +37,15 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
 @interface ASJPListHelper ()
 
 @property (copy, nonatomic) NSString *filename;
-@property (assign, nonatomic) RootObjectType rootObjectType;
 @property (readonly, nonatomic) BOOL fileExists;
+@property (assign, nonatomic) RootObjectType rootObjectType;
 @property (readonly, copy, nonatomic) NSArray *rootObjectTypes;
 @property (copy, nonatomic) NSString *pListPath;
-@property (weak, nonatomic) NSFileManager *fileManager;
+@property (readonly, weak, nonatomic) NSFileManager *fileManager;
 
 - (void)setup;
-- (void)setupRootObjectType;
+- (void)createPListIfNeeded;
+- (void)setupRootObjectTypeForData:(id)data;
 - (BOOL)isDataCompatibleToSave:(id)data;
 
 @end
@@ -53,6 +54,9 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
 
 - (instancetype)initWithPListFileNamed:(NSString *)name
 {
+  // validate filename
+  NSAssert(name.length > 0, kInvalidFilenameMessage);
+  
   self = [super init];
   if (self) {
     _filename = name;
@@ -65,23 +69,21 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
 
 - (void)setup
 {
-  // validate filename
-  NSAssert(_filename.length > 0, kInvalidFilenameMessage);
-  
-  // default root object type
   _rootObjectType = RootObjectTypeNone;
-  
-  // create file if it does not exist
-  if (!self.fileExists)
-  {
-    BOOL success = [self.fileManager createFileAtPath:self.pListPath contents:nil attributes:nil];
-    NSAssert(success, @"Could not create property list file at path: %@", self.pListPath);
+  [self createPListIfNeeded];
+}
+
+- (void)createPListIfNeeded
+{
+  if (self.fileExists) {
+    return;
   }
   
-  // set root object type if exists
-  else {
-    [self setupRootObjectType];
-  }
+  BOOL success = [self.fileManager createFileAtPath:self.pListPath contents:nil attributes:nil];
+  NSAssert(success, @"Could not create property list file at path: %@", self.pListPath);
+  
+  id contents = self.pListContents;
+  [self setupRootObjectTypeForData:contents];
 }
 
 - (BOOL)fileExists
@@ -96,14 +98,12 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
 
 #pragma mark - Root type
 
-- (void)setupRootObjectType
+- (void)setupRootObjectTypeForData:(id)data
 {
-  id contents = self.pListContents;
   for (NSString *type in self.rootObjectTypes)
   {
-#warning failing here to check what root type it is
-    NSLog(@"%@", [type class]);
-    if ([contents isKindOfClass:[type class]])
+    Class class = NSClassFromString(type);
+    if ([data isKindOfClass:class])
     {
       NSInteger idx = [self.rootObjectTypes indexOfObject:type];
       _rootObjectType = (RootObjectType)idx;
@@ -116,75 +116,72 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
   return @[@"NSArray", @"NSDictionary"];
 }
 
-#pragma mark - Operations
+#pragma mark - Save
 
 - (BOOL)save:(id)data
 {
   BOOL isCompatible = [self isDataCompatibleToSave:data];
-  
   if (!isCompatible) {
     return NO;
   }
   
-  // fall back to NSArray as the default root object type in not available
-  if (_rootObjectType == RootObjectTypeNone)
-  {
-    _rootObjectType = RootObjectTypeArray;
-    NSArray *array = [[NSArray alloc] initWithObjects:data, nil];
-    return [array writeToFile:self.pListPath atomically:YES];
-  }
   
   return [data writeToFile:self.pListPath atomically:YES];
 }
 
+#pragma mark - Update
+
 - (BOOL)update:(id)data
 {
   BOOL isCompatible = [self isDataCompatibleToSave:data];
-  
   if (!isCompatible) {
     return NO;
   }
   
-  if (_rootObjectType == RootObjectTypeArray)
-  {
-    NSMutableArray *fileContents = [[NSMutableArray alloc] initWithArray:self.pListContents];
-    
-    // append objects if root type is array and provided data is too
-    if ([data isKindOfClass:[NSArray class]])
-    {
-      [fileContents addObjectsFromArray:data];
-    }
-    // simply add data as another object
-    else
-    {
-      [fileContents addObject:data];
-    }
-    
-    return [fileContents writeToFile:self.pListPath atomically:YES];
+  // just save if plist is empty
+  if (_rootObjectType == RootObjectTypeNone) {
+    return [self save:data];
   }
   
-  else if (_rootObjectType == RootObjectTypeDictionary)
-  {
-    NSMutableDictionary *fileContents = [[NSMutableDictionary alloc] initWithDictionary:self.pListContents];
-    
-    // append objects if root type is disctionary and provided data is too
-    if ([data isKindOfClass:[NSDictionary class]])
-    {
-      [fileContents addEntriesFromDictionary:data];
-    }
-    
-    return [fileContents writeToFile:self.pListPath atomically:YES];
+  if (_rootObjectType == RootObjectTypeArray) {
+    return [self updateDataInArrayTypePList:data];
   }
   
-  // fall back to NSArray as the default root object type in not available
-  else if (_rootObjectType == RootObjectTypeNone) {
-    NSArray *array = [[NSArray alloc] initWithObjects:data, nil];
-    return [array writeToFile:self.pListPath atomically:YES];
+  else if (_rootObjectType == RootObjectTypeDictionary) {
+    return [self updateDataInDictionaryTypePList:data];
   }
   
+  return NO;
+}
+
+- (BOOL)updateDataInArrayTypePList:(id)data
+{
+  NSMutableArray *fileContents = [[NSMutableArray alloc] initWithArray:self.pListContents];
+  
+  // append objects if root type is array and provided data is too
+  if ([data isKindOfClass:[NSArray class]]) {
+    [fileContents addObjectsFromArray:data];
+  }
+  
+  // simply add data as another object
   else {
-    return NO;
+    [fileContents addObject:data];
   }
+  
+  return [fileContents writeToFile:self.pListPath atomically:YES];
+}
+
+- (BOOL)updateDataInDictionaryTypePList:(id)data
+{
+  NSMutableDictionary *fileContents = [[NSMutableDictionary alloc] initWithDictionary:self.pListContents];
+  
+  // append objects if root type is disctionary and provided data is too
+  if ([data isKindOfClass:[NSDictionary class]])
+  {
+    [fileContents addEntriesFromDictionary:data];
+  }
+  
+  return [fileContents writeToFile:self.pListPath atomically:YES];
 }
 
 #pragma mark - Helpers
@@ -210,6 +207,21 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
 
 #pragma mark - Property getters
 
+- (NSString *)pListPath
+{
+  if (_pListPath) {
+    return _pListPath;
+  }
+  NSString *directoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
+  _pListPath = [directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", _filename]];
+  return _pListPath;
+}
+
+- (BOOL)isEmpty
+{
+  return !self.pListContents;
+}
+
 - (id)pListContents
 {
   NSData *data = [NSData dataWithContentsOfFile:self.pListPath];
@@ -221,22 +233,12 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
   NSError *error = nil;
   
   id object = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:&error];
-  return object;
-}
-
-- (NSString *)pListPath
-{
-  if (_pListPath) {
-    return _pListPath;
+  
+  if (error.code == 3840) {
+    return nil;
   }
-  NSString *directoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-  _pListPath = [directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", _filename]];
-  return _pListPath;
-}
-
-- (BOOL)isEmpty
-{
-  return !self.pListContents;
+  
+  return object;
 }
 
 @end
