@@ -1,5 +1,5 @@
 //
-//  ASJPListHelper.m
+// ASJPlistHelper.m
 //
 // Copyright (c) 2014 Sudeep Jaiswal
 //
@@ -21,12 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ASJPListHelper.h"
-
-// help: https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/PropertyLists/SerializePlist/SerializePlist.html
+#import "ASJPlistHelper.h"
 
 static NSString *const kInvalidFilenameMessage = @"Invalid filename; must be of at least 1 character.";
-
 static NSString *const kIncompatibleMessage = @"Data provided is not compatible to be saved. To troubleshoot you can:\n1. Take a look at your data and your plist's root object\n2.Make sure your objects conform to the NSCoding protocol and/or are of these types: NSArray, NSDictionary, NSString, NSData, NSDate, NSNumber.";
 
 typedef NS_ENUM(NSInteger, RootObjectType) {
@@ -35,28 +32,30 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
   RootObjectTypeNone
 };
 
-@interface ASJPListHelper ()
+@interface ASJPlistHelper ()
 
 @property (copy, nonatomic) NSString *filename;
-@property (readonly, nonatomic) BOOL fileExists;
+@property (copy, nonatomic) NSString *plistPath;
 @property (assign, nonatomic) RootObjectType rootObjectType;
+@property (readonly, nonatomic) BOOL fileExists;
 @property (readonly, copy, nonatomic) NSArray *rootObjectTypes;
-@property (copy, nonatomic) NSString *pListPath;
 @property (readonly, weak, nonatomic) NSFileManager *fileManager;
 
 - (void)setup;
-- (void)createPListIfNeeded;
+- (void)createPlistIfNeeded;
 - (void)setupRootObjectTypeForData:(id)data;
+- (BOOL)updateDataInArrayTypePlist:(id)data;
+- (BOOL)updateDataInDictionaryTypePlist:(id)data;
 - (BOOL)isDataCompatibleToSave:(id)data;
 
 @end
 
-@implementation ASJPListHelper
+@implementation ASJPlistHelper
 
-- (instancetype)initWithPListFileNamed:(NSString *)name
+- (instancetype)initWithPlistNamed:(NSString *)name
 {
   // validate filename
-  NSAssert(name.length > 0, kInvalidFilenameMessage);
+  NSAssert(name.length, kInvalidFilenameMessage);
   
   self = [super init];
   if (self) {
@@ -66,30 +65,40 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
   return self;
 }
 
+- (BOOL)deletePlistWithError:(NSError *__autoreleasing  _Nullable *)error
+{
+  BOOL isDeletable = [self.fileManager isDeletableFileAtPath:self.plistPath];
+  if (!isDeletable) {
+    return NO;
+  }
+  
+  return [self.fileManager removeItemAtPath:self.plistPath error:error];
+}
+
 #pragma mark - Setup
 
 - (void)setup
 {
   _rootObjectType = RootObjectTypeNone;
-  [self createPListIfNeeded];
+  [self createPlistIfNeeded];
+  
+  id contents = self.plistContents;
+  [self setupRootObjectTypeForData:contents];
 }
 
-- (void)createPListIfNeeded
+- (void)createPlistIfNeeded
 {
   if (self.fileExists) {
     return;
   }
   
-  BOOL success = [self.fileManager createFileAtPath:self.pListPath contents:nil attributes:nil];
-  NSAssert(success, @"Could not create property list file at path: %@", self.pListPath);
-  
-  id contents = self.pListContents;
-  [self setupRootObjectTypeForData:contents];
+  BOOL success = [self.fileManager createFileAtPath:self.plistPath contents:nil attributes:nil];
+  NSAssert(success, @"Could not create property list file at path: %@", self.plistPath);
 }
 
 - (BOOL)fileExists
 {
-  return [self.fileManager fileExistsAtPath:self.pListPath];
+  return [self.fileManager fileExistsAtPath:self.plistPath];
 }
 
 - (NSFileManager *)fileManager
@@ -126,8 +135,20 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
     return NO;
   }
   
+  if ([data isKindOfClass:[NSDictionary class]])
+  {
+    _rootObjectType = RootObjectTypeDictionary;
+    return [data writeToFile:self.plistPath atomically:YES];
+  }
   
-  return [data writeToFile:self.pListPath atomically:YES];
+  _rootObjectType = RootObjectTypeArray;
+  
+  if ([data isKindOfClass:[NSArray class]]) {
+    return [data writeToFile:self.plistPath atomically:YES];
+  }
+  
+  NSArray *array = [NSArray arrayWithObject:data];
+  return [array writeToFile:self.plistPath atomically:YES];
 }
 
 #pragma mark - Update
@@ -140,24 +161,30 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
   }
   
   // just save if plist is empty
-  if (_rootObjectType == RootObjectTypeNone) {
+  if (self.isEmpty) {
     return [self save:data];
   }
   
   if (_rootObjectType == RootObjectTypeArray) {
-    return [self updateDataInArrayTypePList:data];
+    return [self updateDataInArrayTypePlist:data];
   }
   
-  else if (_rootObjectType == RootObjectTypeDictionary) {
-    return [self updateDataInDictionaryTypePList:data];
+  // if root object is of type NSDictionary and we try to save an array it it, it won't be possible. however, an array will be able to take other kinds of objects, including a dictionary. i have already checked if data is plist-eligible at the start
+  else if (_rootObjectType == RootObjectTypeDictionary)
+  {
+    if (![data isKindOfClass:[NSDictionary class]]) {
+      return NO;
+    }
+    
+    return [self updateDataInDictionaryTypePlist:data];
   }
   
   return NO;
 }
 
-- (BOOL)updateDataInArrayTypePList:(id)data
+- (BOOL)updateDataInArrayTypePlist:(id)data
 {
-  NSMutableArray *fileContents = [[NSMutableArray alloc] initWithArray:self.pListContents];
+  NSMutableArray *fileContents = [[NSMutableArray alloc] initWithArray:self.plistContents];
   
   // append objects if root type is array and provided data is too
   if ([data isKindOfClass:[NSArray class]]) {
@@ -169,12 +196,12 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
     [fileContents addObject:data];
   }
   
-  return [fileContents writeToFile:self.pListPath atomically:YES];
+  return [fileContents writeToFile:self.plistPath atomically:YES];
 }
 
-- (BOOL)updateDataInDictionaryTypePList:(id)data
+- (BOOL)updateDataInDictionaryTypePlist:(id)data
 {
-  NSMutableDictionary *fileContents = [[NSMutableDictionary alloc] initWithDictionary:self.pListContents];
+  NSMutableDictionary *fileContents = [[NSMutableDictionary alloc] initWithDictionary:self.plistContents];
   
   // append objects if root type is disctionary and provided data is too
   if ([data isKindOfClass:[NSDictionary class]])
@@ -182,7 +209,7 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
     [fileContents addEntriesFromDictionary:data];
   }
   
-  return [fileContents writeToFile:self.pListPath atomically:YES];
+  return [fileContents writeToFile:self.plistPath atomically:YES];
 }
 
 #pragma mark - Helpers
@@ -192,41 +219,30 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
   BOOL isCompatible = [NSPropertyListSerialization propertyList:data isValidForFormat:NSPropertyListXMLFormat_v1_0];
   NSAssert(isCompatible, kIncompatibleMessage);
   
-  // if root object is of type NSDictionary and we try to save an array it it,
-  // it won't be possible. however, an array will be able to take other kinds
-  // of objects, including a dictionary. i have already checked if data is
-  // plist-eligible at the start
-  if (_rootObjectType == RootObjectTypeDictionary)
-  {
-    if (![data isKindOfClass:[NSDictionary class]]) {
-      isCompatible = NO;
-    }
-  }
-  
   return isCompatible;
 }
 
 #pragma mark - Property getters
 
-- (NSString *)pListPath
+- (NSString *)plistPath
 {
-  if (_pListPath) {
-    return _pListPath;
+  if (_plistPath) {
+    return _plistPath;
   }
   NSString *directoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
-  _pListPath = [directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", _filename]];
-  return _pListPath;
+  _plistPath = [directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", _filename]];
+  return _plistPath;
 }
 
 - (BOOL)isEmpty
 {
-  return !self.pListContents;
+  return !self.plistContents;
 }
 
-- (id)pListContents
+- (id)plistContents
 {
-  NSData *data = [NSData dataWithContentsOfFile:self.pListPath];
-  if (!data) {
+  NSData *data = [NSData dataWithContentsOfFile:self.plistPath];
+  if (!data.length) {
     return nil;
   }
   

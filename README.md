@@ -1,12 +1,12 @@
-# ASJPListHelper
+# ASJPlistHelper
 
-Property lists, or Plists are everywhere in iOS and Mac platforms. They are used to store small amounts of data like default settings/preferences. This library attempts to simplify working with them. It encapsulates basic functionality needed to save and retrieve data from them.
+Property lists, or plists are everywhere in iOS and Mac platforms. They are used to store small amounts of data like default settings/preferences. This library attempts to simplify working with them. It encapsulates the functionality needed to save and retrieve data from them.
 
 Plists generally have two kinds of root objects; `NSArray` or `NSDictionary`. For instance, the `Info.plist` in every Xcode project holds an `NSDictionary`. When using this library, if the current plist you're working with is empty and does not have a root object type, it will be set when you save any data in it.
 
-Suppose you save an `NSDictionary`, that becomes the root object. But if you save any other kind of **valid** plist object, it will fall back to `NSArray` so that any updatation of the plist in future would mean adding objects to that array.
+Suppose you save an `NSDictionary`, that becomes the root object. But if you save any other kind of valid plist object, it will fall back to `NSArray` so that any updatation of the plist in future would mean adding objects to that array.
 
-When trying to update an existing plist with root object type `NSDictionary`, note that you can only update it with another dictionary. Attempting to update with any other object will **fail**. On the other hand, an existing `NSArray` type plist will be able to update itself with any kind of valid plist object.
+When trying to update an existing plist with root object type `NSDictionary`, note that you can only update it with another dictionary. Attempting to update with any other object will fail. On the other hand, an existing `NSArray` type plist will be able to update itself with any kind of valid plist object.
 
 # Installation
 
@@ -41,7 +41,7 @@ Returns the data saved in the plist file.
 ```objc
 - (BOOL)deletePlistWithError:(NSError * _Nullable *)error;
 ```
-You can delete the plist if you're done with it.
+You can delete the plist if you're done with it. To recreate, you must initialize another instance of `ASJPlistHelper`.
 
 # Credits
 

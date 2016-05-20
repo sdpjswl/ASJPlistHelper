@@ -1,5 +1,5 @@
 //
-//  ASJPListHelper.h
+// ASJPlistHelper.h
 //
 // Copyright (c) 2014 Sudeep Jaiswal
 //
@@ -23,12 +23,14 @@
 
 @import Foundation;
 
-@interface ASJPListHelper : NSObject
+NS_ASSUME_NONNULL_BEGIN
+
+@interface ASJPlistHelper : NSObject
 
 /**
  *  Fetch data contained in the plist file.
  */
-@property (readonly, copy, nonatomic) id pListContents;
+@property (nullable, readonly, copy, nonatomic) id plistContents;
 
 /**
  *  Checks whether the plist file has anything stored in it.
@@ -38,19 +40,28 @@
 /**
  *  Fetch path of plist file in the file system.
  */
-@property (readonly, copy, nonatomic) NSString *pListPath;
+@property (readonly, copy, nonatomic) NSString *plistPath;
 
 /**
- *  The designated intializer
+ *  The designated intializer.
  *
  *  @param name Name of the plist file.
  *
- *  @return An instance of ASJPListHelper.
+ *  @return An instance of ASJPlistHelper.
  */
-- (instancetype)initWithPListFileNamed:(NSString *)name NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithPlistNamed:(NSString *)name NS_DESIGNATED_INITIALIZER;
 
 /**
- *  Cannot use init. Use the designated initializer "initWithPListFileNamed:".
+ *  Deletes the plist file.
+ *
+ *  @param error A pointer to an NSError object.
+ *
+ *  @return A boolean indicating whether the plist was deleted or not.
+ */
+- (BOOL)deletePlistWithError:(NSError * _Nullable *)error;
+
+/**
+ *  Cannot use init. Use the designated initializer "initWithPlistNamed:".
  */
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -59,7 +70,7 @@
  *
  *  @param data A container object containing data to be replaced.
  *
- *  @return A bool indicating whether the operation was successful.
+ *  @return A boolean indicating whether the operation was successful.
  */
 - (BOOL)save:(id)data;
 
@@ -68,8 +79,10 @@
  *
  *  @param data A container object containing data to be added.
  *
- *  @return A bool indicating whether the operation was successful.
+ *  @return A boolean indicating whether the operation was successful.
  */
 - (BOOL)update:(id)data;
 
 @end
+
+NS_ASSUME_NONNULL_END

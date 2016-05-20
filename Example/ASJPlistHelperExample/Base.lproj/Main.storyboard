@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Hy0-ST-2Xy">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="QGv-pE-I4I">
+            <objects>
+                <viewController id="Hy0-ST-2Xy" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Q79-L6-w9T"/>
+                        <viewControllerLayoutGuide type="bottom" id="sCy-LK-PQl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vwi-v7-IVs">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ll8-eq-tfN">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ara-1h-edE">
+                                        <rect key="frame" x="8" y="7" width="396" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jkp-fK-hfi">
+                                        <rect key="frame" x="412" y="7" width="44" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="zTs-4a-lVZ"/>
+                                        </constraints>
+                                        <state key="normal" title="Add">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addTapped:" destination="Hy0-ST-2Xy" eventType="touchUpInside" id="rYe-ig-PVV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9p7-JD-fnx">
+                                        <rect key="frame" x="464" y="7" width="60" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="T5Z-ZG-K6c"/>
+                                        </constraints>
+                                        <state key="normal" title="Update">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="updateTapped:" destination="Hy0-ST-2Xy" eventType="touchUpInside" id="9Rk-hd-v0w"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9v-oX-9pH">
+                                        <rect key="frame" x="532" y="7" width="60" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="5Po-FN-ocG"/>
+                                        </constraints>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteTapped:" destination="Hy0-ST-2Xy" eventType="touchUpInside" id="5fQ-4n-d9P"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.41960784309999999" blue="0.3294117647" alpha="0.25" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="h9v-oX-9pH" secondAttribute="trailing" constant="8" id="9qF-d2-XJt"/>
+                                    <constraint firstItem="Ara-1h-edE" firstAttribute="centerY" secondItem="Jkp-fK-hfi" secondAttribute="centerY" id="CNx-ax-fQ9"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jkp-fK-hfi" secondAttribute="trailing" constant="8" id="LP4-An-DEC"/>
+                                    <constraint firstItem="h9v-oX-9pH" firstAttribute="centerY" secondItem="9p7-JD-fnx" secondAttribute="centerY" id="Mw8-BG-531"/>
+                                    <constraint firstAttribute="height" constant="44" id="Oq9-mk-FMI"/>
+                                    <constraint firstItem="9p7-JD-fnx" firstAttribute="centerY" secondItem="Jkp-fK-hfi" secondAttribute="centerY" id="TAq-iP-vzf"/>
+                                    <constraint firstItem="Ara-1h-edE" firstAttribute="leading" secondItem="Ll8-eq-tfN" secondAttribute="leading" constant="8" id="Vnb-tw-zZM"/>
+                                    <constraint firstAttribute="centerY" secondItem="Ara-1h-edE" secondAttribute="centerY" id="ZBI-87-I9E"/>
+                                    <constraint firstItem="9p7-JD-fnx" firstAttribute="leading" secondItem="Jkp-fK-hfi" secondAttribute="trailing" constant="8" id="i6P-Dg-yst"/>
+                                    <constraint firstItem="h9v-oX-9pH" firstAttribute="leading" secondItem="9p7-JD-fnx" secondAttribute="trailing" constant="8" id="mzZ-bo-uFR"/>
+                                    <constraint firstItem="Jkp-fK-hfi" firstAttribute="leading" secondItem="Ara-1h-edE" secondAttribute="trailing" constant="8" id="otF-Zi-zq7"/>
+                                    <constraint firstAttribute="trailing" secondItem="9p7-JD-fnx" secondAttribute="trailing" constant="8" id="zfF-Pp-11I"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="LP4-An-DEC"/>
+                                        <exclude reference="zfF-Pp-11I"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ww6-EN-Qdt">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOt-gN-PAi">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="zOt-gN-PAi" firstAttribute="top" secondItem="Ww6-EN-Qdt" secondAttribute="top" id="YdR-q7-mHq"/>
+                                    <constraint firstAttribute="bottom" secondItem="zOt-gN-PAi" secondAttribute="bottom" id="nxc-Nj-vOh"/>
+                                    <constraint firstItem="zOt-gN-PAi" firstAttribute="leading" secondItem="Ww6-EN-Qdt" secondAttribute="leading" id="r9o-nN-saw"/>
+                                    <constraint firstAttribute="trailing" secondItem="zOt-gN-PAi" secondAttribute="trailing" id="zgM-J3-JCK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Ww6-EN-Qdt" secondAttribute="trailing" id="ANG-36-Dyv"/>
+                            <constraint firstItem="sCy-LK-PQl" firstAttribute="top" secondItem="Ww6-EN-Qdt" secondAttribute="bottom" id="CtZ-cY-15R"/>
+                            <constraint firstAttribute="trailing" secondItem="Ll8-eq-tfN" secondAttribute="trailing" id="MC9-2m-jWZ"/>
+                            <constraint firstItem="Ww6-EN-Qdt" firstAttribute="top" secondItem="Ll8-eq-tfN" secondAttribute="bottom" id="MMX-8W-ifl"/>
+                            <constraint firstItem="Ll8-eq-tfN" firstAttribute="top" secondItem="Q79-L6-w9T" secondAttribute="bottom" id="QBT-hD-UYt"/>
+                            <constraint firstItem="Ww6-EN-Qdt" firstAttribute="leading" secondItem="vwi-v7-IVs" secondAttribute="leading" id="QIH-j1-lOo"/>
+                            <constraint firstItem="Ll8-eq-tfN" firstAttribute="leading" secondItem="vwi-v7-IVs" secondAttribute="leading" id="bHY-72-AzO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="inputTextField" destination="Ara-1h-edE" id="76h-62-2Pc"/>
+                        <outlet property="plistContentsTextView" destination="zOt-gN-PAi" id="5Z3-Kf-U2m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aey-Ii-X7E" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="396" y="-231"/>
+        </scene>
+    </scenes>
+</document>
