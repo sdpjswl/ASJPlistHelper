@@ -12,7 +12,7 @@ When trying to update an existing plist with root object type `NSDictionary`, no
 
 CocoaPods is the preferred way to install this library. Add this command to your `Podfile`:
 
-```
+```ruby
 pod 'ASJPlistHelper'
 ```
 
@@ -26,21 +26,25 @@ Use the designated initializer to create an instance. You will also need to prov
 ```objc
 - (BOOL)save:(id)data;
 ```
+
 Saves data provided to plist file. This method **will overwrite** any previous data present in the plist. Returns YES if saving is successful.
 
 ```objc
 - (BOOL)update:(id)data;
 ```
+
 Similar to `save`, although this method **will not overwrite** previous data present in the plist file and append new data after it. Returns YES if saving is successful.
 
 ```objc
 @property (readonly, copy, nonatomic) id plistContents;
 ```
+
 Returns the data saved in the plist file.
 
 ```objc
 - (BOOL)deletePlistWithError:(NSError * _Nullable *)error;
 ```
+
 You can delete the plist if you're done with it. To recreate, you must initialize another instance of `ASJPlistHelper`.
 
 # Credits
@@ -49,10 +53,10 @@ You can delete the plist if you're done with it. To recreate, you must initializ
 
 # To-do
 
-- ~~Add UI to example project~~
-- ~~Refactor code and make it podworthy~~
-- ~~Look up NSPropertyListSerialization~~
-- ~~Allow `id` to be sent to save/update~~
+- ~~Add UI to example project.~~
+- ~~Refactor code and make it podworthy.~~
+- ~~Look up NSPropertyListSerialization.~~
+- ~~Allow `id` to be sent to save/update.~~
 
 # License
 
