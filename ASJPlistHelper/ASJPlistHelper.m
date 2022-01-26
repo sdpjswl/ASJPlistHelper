@@ -27,9 +27,9 @@ static NSString *const kInvalidFilenameMessage = @"Invalid filename; must be of 
 static NSString *const kIncompatibleMessage = @"Data provided is not compatible to be saved. To troubleshoot you can:\n1. Take a look at your data and your plist's root object\n2.Make sure your objects conform to the NSCoding protocol and/or are of these types: NSArray, NSDictionary, NSString, NSData, NSDate, NSNumber.";
 
 typedef NS_ENUM(NSInteger, RootObjectType) {
-  RootObjectTypeArray,
-  RootObjectTypeDictionary,
-  RootObjectTypeNone
+    RootObjectTypeArray,
+    RootObjectTypeDictionary,
+    RootObjectTypeNone
 };
 
 @interface ASJPlistHelper ()
@@ -54,208 +54,208 @@ typedef NS_ENUM(NSInteger, RootObjectType) {
 
 - (instancetype)initWithPlistNamed:(NSString *)name
 {
-  // validate filename
-  NSAssert(name.length, kInvalidFilenameMessage);
-  
-  self = [super init];
-  if (self) {
-    _filename = name;
-    [self setup];
-  }
-  return self;
+    // validate filename
+    NSAssert(name.length, kInvalidFilenameMessage);
+    
+    self = [super init];
+    if (self) {
+        _filename = name;
+        [self setup];
+    }
+    return self;
 }
 
 - (BOOL)deletePlistWithError:(NSError *__autoreleasing  _Nullable *)error
 {
-  BOOL isDeletable = [self.fileManager isDeletableFileAtPath:self.plistPath];
-  if (!isDeletable) {
-    return NO;
-  }
-  
-  return [self.fileManager removeItemAtPath:self.plistPath error:error];
+    BOOL isDeletable = [self.fileManager isDeletableFileAtPath:self.plistPath];
+    if (!isDeletable) {
+        return NO;
+    }
+    
+    return [self.fileManager removeItemAtPath:self.plistPath error:error];
 }
 
 #pragma mark - Setup
 
 - (void)setup
 {
-  _rootObjectType = RootObjectTypeNone;
-  [self createPlistIfNeeded];
-  
-  id contents = self.plistContents;
-  [self setupRootObjectTypeForData:contents];
+    _rootObjectType = RootObjectTypeNone;
+    [self createPlistIfNeeded];
+    
+    id contents = self.plistContents;
+    [self setupRootObjectTypeForData:contents];
 }
 
 - (void)createPlistIfNeeded
 {
-  if (self.fileExists) {
-    return;
-  }
-  
-  BOOL success = [self.fileManager createFileAtPath:self.plistPath contents:nil attributes:nil];
-  NSAssert(success, @"Could not create property list file at path: %@", self.plistPath);
+    if (self.fileExists) {
+        return;
+    }
+    
+    BOOL success = [self.fileManager createFileAtPath:self.plistPath contents:nil attributes:nil];
+    NSAssert(success, @"Could not create property list file at path: %@", self.plistPath);
 }
 
 - (BOOL)fileExists
 {
-  return [self.fileManager fileExistsAtPath:self.plistPath];
+    return [self.fileManager fileExistsAtPath:self.plistPath];
 }
 
 - (NSFileManager *)fileManager
 {
-  return [NSFileManager defaultManager];
+    return [NSFileManager defaultManager];
 }
 
 #pragma mark - Root type
 
 - (void)setupRootObjectTypeForData:(id)data
 {
-  for (NSString *type in self.rootObjectTypes)
-  {
-    Class class = NSClassFromString(type);
-    if ([data isKindOfClass:class])
+    for (NSString *type in self.rootObjectTypes)
     {
-      NSInteger idx = [self.rootObjectTypes indexOfObject:type];
-      _rootObjectType = (RootObjectType)idx;
+        Class class = NSClassFromString(type);
+        if ([data isKindOfClass:class])
+        {
+            NSInteger idx = [self.rootObjectTypes indexOfObject:type];
+            _rootObjectType = (RootObjectType)idx;
+        }
     }
-  }
 }
 
 - (NSArray *)rootObjectTypes
 {
-  return @[@"NSArray", @"NSDictionary"];
+    return @[@"NSArray", @"NSDictionary"];
 }
 
 #pragma mark - Save
 
 - (BOOL)save:(id)data
 {
-  BOOL isCompatible = [self isDataCompatibleToSave:data];
-  if (!isCompatible) {
-    return NO;
-  }
-  
-  if ([data isKindOfClass:[NSDictionary class]])
-  {
-    _rootObjectType = RootObjectTypeDictionary;
-    return [data writeToFile:self.plistPath atomically:YES];
-  }
-  
-  _rootObjectType = RootObjectTypeArray;
-  
-  if ([data isKindOfClass:[NSArray class]]) {
-    return [data writeToFile:self.plistPath atomically:YES];
-  }
-  
-  NSArray *array = [NSArray arrayWithObject:data];
-  return [array writeToFile:self.plistPath atomically:YES];
+    BOOL isCompatible = [self isDataCompatibleToSave:data];
+    if (!isCompatible) {
+        return NO;
+    }
+    
+    if ([data isKindOfClass:[NSDictionary class]])
+    {
+        _rootObjectType = RootObjectTypeDictionary;
+        return [data writeToFile:self.plistPath atomically:YES];
+    }
+    
+    _rootObjectType = RootObjectTypeArray;
+    
+    if ([data isKindOfClass:[NSArray class]]) {
+        return [data writeToFile:self.plistPath atomically:YES];
+    }
+    
+    NSArray *array = [NSArray arrayWithObject:data];
+    return [array writeToFile:self.plistPath atomically:YES];
 }
 
 #pragma mark - Update
 
 - (BOOL)update:(id)data
 {
-  BOOL isCompatible = [self isDataCompatibleToSave:data];
-  if (!isCompatible) {
-    return NO;
-  }
-  
-  // just save if plist is empty
-  if (self.isEmpty) {
-    return [self save:data];
-  }
-  
-  if (_rootObjectType == RootObjectTypeArray) {
-    return [self updateDataInArrayTypePlist:data];
-  }
-  
-  // if root object is of type NSDictionary and we try to save an array it it, it won't be possible. however, an array will be able to take other kinds of objects, including a dictionary. i have already checked if data is plist-eligible at the start
-  else if (_rootObjectType == RootObjectTypeDictionary)
-  {
-    if (![data isKindOfClass:[NSDictionary class]]) {
-      return NO;
+    BOOL isCompatible = [self isDataCompatibleToSave:data];
+    if (!isCompatible) {
+        return NO;
     }
     
-    return [self updateDataInDictionaryTypePlist:data];
-  }
-  
-  return NO;
+    // just save if plist is empty
+    if (self.isEmpty) {
+        return [self save:data];
+    }
+    
+    if (_rootObjectType == RootObjectTypeArray) {
+        return [self updateDataInArrayTypePlist:data];
+    }
+    
+    // if root object is of type NSDictionary and we try to save an array it it, it won't be possible. however, an array will be able to take other kinds of objects, including a dictionary. i have already checked if data is plist-eligible at the start
+    else if (_rootObjectType == RootObjectTypeDictionary)
+    {
+        if (![data isKindOfClass:[NSDictionary class]]) {
+            return NO;
+        }
+        
+        return [self updateDataInDictionaryTypePlist:data];
+    }
+    
+    return NO;
 }
 
 - (BOOL)updateDataInArrayTypePlist:(id)data
 {
-  NSMutableArray *fileContents = [[NSMutableArray alloc] initWithArray:self.plistContents];
-  
-  // append objects if root type is array and provided data is too
-  if ([data isKindOfClass:[NSArray class]]) {
-    [fileContents addObjectsFromArray:data];
-  }
-  
-  // simply add data as another object
-  else {
-    [fileContents addObject:data];
-  }
-  
-  return [fileContents writeToFile:self.plistPath atomically:YES];
+    NSMutableArray *fileContents = [[NSMutableArray alloc] initWithArray:self.plistContents];
+    
+    // append objects if root type is array and provided data is too
+    if ([data isKindOfClass:[NSArray class]]) {
+        [fileContents addObjectsFromArray:data];
+    }
+    
+    // simply add data as another object
+    else {
+        [fileContents addObject:data];
+    }
+    
+    return [fileContents writeToFile:self.plistPath atomically:YES];
 }
 
 - (BOOL)updateDataInDictionaryTypePlist:(id)data
 {
-  NSMutableDictionary *fileContents = [[NSMutableDictionary alloc] initWithDictionary:self.plistContents];
-  
-  // append objects if root type is disctionary and provided data is too
-  if ([data isKindOfClass:[NSDictionary class]])
-  {
-    [fileContents addEntriesFromDictionary:data];
-  }
-  
-  return [fileContents writeToFile:self.plistPath atomically:YES];
+    NSMutableDictionary *fileContents = [[NSMutableDictionary alloc] initWithDictionary:self.plistContents];
+    
+    // append objects if root type is disctionary and provided data is too
+    if ([data isKindOfClass:[NSDictionary class]])
+    {
+        [fileContents addEntriesFromDictionary:data];
+    }
+    
+    return [fileContents writeToFile:self.plistPath atomically:YES];
 }
 
 #pragma mark - Helpers
 
 - (BOOL)isDataCompatibleToSave:(id)data
 {
-  BOOL isCompatible = [NSPropertyListSerialization propertyList:data isValidForFormat:NSPropertyListXMLFormat_v1_0];
-  NSAssert(isCompatible, kIncompatibleMessage);
-  
-  return isCompatible;
+    BOOL isCompatible = [NSPropertyListSerialization propertyList:data isValidForFormat:NSPropertyListXMLFormat_v1_0];
+    NSAssert(isCompatible, kIncompatibleMessage);
+    
+    return isCompatible;
 }
 
 #pragma mark - Property getters
 
 - (NSString *)plistPath
 {
-  if (_plistPath) {
+    if (_plistPath) {
+        return _plistPath;
+    }
+    NSString *directoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
+    _plistPath = [directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", _filename]];
     return _plistPath;
-  }
-  NSString *directoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
-  _plistPath = [directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", _filename]];
-  return _plistPath;
 }
 
 - (BOOL)isEmpty
 {
-  return !self.plistContents;
+    return !self.plistContents;
 }
 
 - (id)plistContents
 {
-  NSData *data = [NSData dataWithContentsOfFile:self.plistPath];
-  if (!data.length) {
-    return nil;
-  }
-  
-  NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
-  NSError *error = nil;
-  
-  id object = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:&error];
-  
-  if (error.code == 3840) {
-    return nil;
-  }
-  
-  return object;
+    NSData *data = [NSData dataWithContentsOfFile:self.plistPath];
+    if (!data.length) {
+        return nil;
+    }
+    
+    NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
+    NSError *error = nil;
+    
+    id object = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:&error];
+    
+    if (error.code == 3840) {
+        return nil;
+    }
+    
+    return object;
 }
 
 @end
